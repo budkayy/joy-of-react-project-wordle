@@ -1,0 +1,40 @@
+.end-game-container {
+  display: flex;
+  padding: 5rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgba(50, 50, 50, 0.95);
+  margin: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  animation: slideRight 1s forwards;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.rst-btn {
+  border-radius: 8px;
+  padding: 0.5rem;
+  background-color: orange;
+}
+
+.end-game-container p,
+.end-game-container h2 {
+  color: white;
+  text-align: center;
+}
