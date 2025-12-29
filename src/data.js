@@ -50,3 +50,10 @@ export const WORDS = [
   'FLAKE',
   'SOUND',
 ];
+
+export function generateARandomWord(numletters) {
+  const randomWord = fetch(
+    'https://random-word-api.herokuapp.com/word?length=5'
+  );
+  return randomWord;
+}
