@@ -56,8 +56,16 @@ export function checkGuess(guess, answer) {
 }
 
 async function getRandomWord(length) {
-  const response = await fetch(
+  const responses = await fetch(
     `https://random-word-api.herokuapp.com/word?length=${length}`
   );
+  const data = await responses.json();
+}
+
+const Endpoint = `https://random-word-api.herokuapp.com/word?length=`;
+async function fetchRandomWord(endpoint, length) {
+  const response = await fetch(endpoint, length);
   const data = await response.json();
+
+  return data;
 }
