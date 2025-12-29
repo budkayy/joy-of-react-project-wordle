@@ -13,6 +13,7 @@ import { WORDS } from '../../data';
 let answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
+console.log('change 1');
 
 function Game() {
   const [gameStatus, setGameStatus] = React.useState('running');
