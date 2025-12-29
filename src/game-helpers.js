@@ -10,6 +10,7 @@ export function checkGuess(guess, answer) {
 
   if (!guess) {
     return null;
+    r;
   }
 
   const guessChars = guess.toUpperCase().split('');
@@ -52,4 +53,8 @@ export function checkGuess(guess, answer) {
   }
 
   return result;
+}
+
+export function generateARandomWord(lettersAllowed) {
+  console.log(lettersAllowed);
 }
