@@ -2,7 +2,7 @@ import React from 'react';
 import InputContainer from '../InputContainer/InputContainer';
 import Guesses from '../Guesses/Guesses';
 import EndGame from '../EndGame/EndGame';
-import { generateARandomWord } from '../../game-helpers.js';
+
 import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
 import { checkGuess } from '../../game-helpers.js';
 
@@ -20,9 +20,6 @@ function Game() {
 
   const [count, setCount] = React.useState(0);
   const [currentWord, setCurrentWord] = React.useState('');
-
-  console.log(wordsArray);
-  console.log(generateARandomWord(allowedAt));
 
   function addCurrentWord(word) {
     setCurrentWord(word);

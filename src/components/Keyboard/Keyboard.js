@@ -6,8 +6,6 @@ function Keyboard({ currentWord }) {
 
   const keyboardKeysElement = keyboardKeys.split('').map((item) => {
     const typedLetter = currentWord.includes(item);
-    console.log(item);
-    console.log(currentWord);
 
     return (
       <span

@@ -55,6 +55,9 @@ export function checkGuess(guess, answer) {
   return result;
 }
 
-export function generateARandomWord(lettersAllowed) {
-  console.log(lettersAllowed);
+async function getRandomWord(length) {
+  const response = await fetch(
+    `https://random-word-api.herokuapp.com/word?length=${length}`
+  );
+  const data = await response.json();
 }
