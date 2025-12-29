@@ -3,6 +3,8 @@ import InputContainer from '../InputContainer/InputContainer';
 import Guesses from '../Guesses/Guesses';
 import EndGame from '../EndGame/EndGame';
 
+import useSWR from 'swr';
+
 import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
 import { checkGuess } from '../../game-helpers.js';
 
