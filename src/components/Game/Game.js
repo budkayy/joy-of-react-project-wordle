@@ -16,9 +16,9 @@ let answer = sample(WORDS);
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
 
-const ENDPOINT = `https://random-word-api.herokuapp.com/word?length=`;
-async function fetchRandomWord(endpoint, length) {
-  const response = await fetch(endpoint, length);
+const ENDPOINT = `https://random-word-api.herokuapp.com/word?length=5`;
+async function fetchRandomWord(endpoint) {
+  const response = await fetch(endpoint);
   const data = await response.json();
   return data;
 }
@@ -30,7 +30,7 @@ function Game() {
   const [count, setCount] = React.useState(0);
   const [currentWord, setCurrentWord] = React.useState('');
 
-  const { data, error } = useSWR(fetchRandomWord, fetcher);
+  const { data, error } = useSWR(ENDPOINT, fetchRandomWord);
   console.log(data, error);
 
   function addCurrentWord(word) {
