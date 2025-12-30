@@ -9,19 +9,13 @@ import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
 import { checkGuess } from '../../game-helpers.js';
 
 import { sample } from '../../utils';
-import { WORDS } from '../../data';
+import { WORDS, Word2 } from '../../data';
 
 // Pick a random word on every pageload.
-let answer = sample(WORDS);
+let answer = sample(Word2).toUpperCase();
+
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
-
-const ENDPOINT = `https://random-word-api.herokuapp.com/word?length=5`;
-async function fetchRandomWord(endpoint) {
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  return data;
-}
 
 function Game() {
   const [gameStatus, setGameStatus] = React.useState('running');
@@ -29,9 +23,6 @@ function Game() {
 
   const [count, setCount] = React.useState(0);
   const [currentWord, setCurrentWord] = React.useState('');
-
-  const { data, error } = useSWR(ENDPOINT, fetchRandomWord);
-  console.log(data, error);
 
   function addCurrentWord(word) {
     setCurrentWord(word);
@@ -43,6 +34,11 @@ function Game() {
 
   function handleSubmitGuess(e) {
     e.preventDefault();
+
+    if (!Word2.includes(currentWord.toLowerCase())) {
+      alert('please enter an actual word');
+      return;
+    }
 
     const nextGuesses = [
       ...wordsArray,
