@@ -9,10 +9,10 @@ import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
 import { checkGuess } from '../../game-helpers.js';
 
 import { sample } from '../../utils';
-import { WORDS, Word2 } from '../../data';
+import { WORDS, PWORDS } from '../../data';
 
 // Pick a random word on every pageload.
-let answer = sample(Word2).toUpperCase();
+let answer = sample(WORDS).toUpperCase();
 
 // To make debugging easier, we'll log the solution in the console.
 console.info({ answer });
@@ -35,7 +35,8 @@ function Game() {
   function handleSubmitGuess(e) {
     e.preventDefault();
 
-    if (!Word2.includes(currentWord.toLowerCase())) {
+    if (!PWORDS.includes(currentWord.toLowerCase())) {
+      console.log(currentWord.toLowerCase());
       alert('please enter an actual word');
       return;
     }
@@ -68,7 +69,7 @@ function Game() {
     setWordsArray([]);
     setCount(0);
     setCurrentWord('');
-    answer = sample(WORDS);
+    answer = sample(WORDS).toUpperCase();
     console.info({ answer });
   }
 
