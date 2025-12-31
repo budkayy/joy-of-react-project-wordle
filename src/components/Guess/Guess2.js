@@ -1,6 +1,3 @@
-import LettersSpan from './LettersSpan.js';
-import WordParagraph from './WordParagraph.js';
-
 import React from 'react';
 import { range } from '../../utils';
 import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
@@ -10,17 +7,13 @@ function Guess2({ answer, wordsArray, count, currentWord }) {
   const allowedWordsElement = range(allowedAt).map((item, index) => {
     const pIndex = index;
 
-    const displayCurrent =
-      (typeof wordsArray[pIndex] === 'undefined' &&
-        count === 0 &&
-        pIndex === 0) ||
-      (typeof wordsArray[pIndex] === 'undefined' &&
-        count !== 0 &&
-        pIndex === count);
-
-    if (displayCurrent) {
+    if (
+      typeof wordsArray[pIndex] === 'undefined' &&
+      count === 0 &&
+      pIndex === 0
+    ) {
       return (
-        <p className="guess" key={Math.random()}>
+        <p className="guess" key={crypto.randomUUID()}>
           {range(answer.length).map((item, index) => {
             const sIndex = index;
             const currentLetter = currentWord[sIndex];
@@ -32,9 +25,28 @@ function Guess2({ answer, wordsArray, count, currentWord }) {
           })}
         </p>
       );
+    } else if (
+      typeof wordsArray[pIndex] === 'undefined' &&
+      count !== 0 &&
+      pIndex === count
+    ) {
+      return (
+        <p className="guess" key={crypto.randomUUID()}>
+          {range(answer.length).map((item, index) => {
+            const sIndex = index;
+            const currentLetter = currentWord[sIndex];
+
+            return (
+              <span key={Math.random()} className="cell">
+                {currentLetter}
+              </span>
+            );
+          })}
+        </p>
+      );
     } else if (typeof wordsArray[pIndex] !== 'undefined') {
       return (
-        <p className="guess" key={wordsArray[pIndex].id}>
+        <p className="guess" key={crypto.randomUUID()}>
           {range(answer.length).map((item, index) => {
             const sIndex = index;
 
@@ -43,14 +55,17 @@ function Guess2({ answer, wordsArray, count, currentWord }) {
             const currentLetterMatch =
               answer[sIndex] === currentLetter ? true : false;
 
-            const classEst =
-              wordsArray[pIndex].letters[sIndex].status;
+            const curerntLetterIncluded =
+              answer.includes(currentLetter);
+
+            const classEst = currentLetterMatch
+              ? 'cell correct'
+              : curerntLetterIncluded
+              ? 'cell misplaced'
+              : 'cell incorrect';
 
             return (
-              <span
-                key={wordsArray[pIndex].letters[sIndex].id}
-                className={classEst}
-              >
+              <span key={Math.random()} className={classEst}>
                 {classEst === 'cell correct' ? <Confetti /> : null}
                 {wordsArray[pIndex].guess[sIndex]}
               </span>

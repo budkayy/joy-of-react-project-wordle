@@ -1,3 +1,6 @@
+import LettersSpan from './LettersSpan.js';
+import WordParagraph from './WordParagraph.js';
+
 import React from 'react';
 import { range } from '../../utils';
 import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
@@ -7,46 +10,33 @@ function Guess({ answer, wordsArray, count, currentWord }) {
   const allowedWordsElement = range(allowedAt).map((item, index) => {
     const pIndex = index;
 
-    if (
-      typeof wordsArray[pIndex] === 'undefined' &&
-      count === 0 &&
-      pIndex === 0
-    ) {
-      return (
-        <p className="guess" key={crypto.randomUUID()}>
-          {range(answer.length).map((item, index) => {
-            const sIndex = index;
-            const currentLetter = currentWord[sIndex];
-            return (
-              <span key={Math.random()} className="cell">
-                {currentLetter}
-              </span>
-            );
-          })}
-        </p>
-      );
-    } else if (
-      typeof wordsArray[pIndex] === 'undefined' &&
-      count !== 0 &&
-      pIndex === count
-    ) {
-      return (
-        <p className="guess" key={crypto.randomUUID()}>
-          {range(answer.length).map((item, index) => {
-            const sIndex = index;
-            const currentLetter = currentWord[sIndex];
+    const displayCurrent =
+      (typeof wordsArray[pIndex] === 'undefined' &&
+        count === 0 &&
+        pIndex === 0) ||
+      (typeof wordsArray[pIndex] === 'undefined' &&
+        count !== 0 &&
+        pIndex === count);
 
+    if (displayCurrent) {
+      return (
+        <WordParagraph key={Math.random()}>
+          {range(answer.length).map((item, index) => {
+            const sIndex = index;
+            const currentLetter = currentWord[sIndex];
             return (
-              <span key={Math.random()} className="cell">
-                {currentLetter}
-              </span>
+              <LettersSpan
+                key={Math.random()}
+                className="cell"
+                letter={currentLetter}
+              />
             );
           })}
-        </p>
+        </WordParagraph>
       );
     } else if (typeof wordsArray[pIndex] !== 'undefined') {
       return (
-        <p className="guess" key={crypto.randomUUID()}>
+        <WordParagraph key={wordsArray[pIndex].id}>
           {range(answer.length).map((item, index) => {
             const sIndex = index;
 
@@ -55,32 +45,29 @@ function Guess({ answer, wordsArray, count, currentWord }) {
             const currentLetterMatch =
               answer[sIndex] === currentLetter ? true : false;
 
-            const curerntLetterIncluded =
-              answer.includes(currentLetter);
-
-            const classEst = currentLetterMatch
-              ? 'cell correct'
-              : curerntLetterIncluded
-              ? 'cell misplaced'
-              : 'cell incorrect';
+            const classEst =
+              wordsArray[pIndex].letters[sIndex].status;
 
             return (
-              <span key={Math.random()} className={classEst}>
-                {classEst === 'cell correct' ? <Confetti /> : null}
-                {wordsArray[pIndex].guess[sIndex]}
-              </span>
+              <LettersSpan
+                key={wordsArray[pIndex].letters[sIndex].id}
+                className={classEst}
+                letter={wordsArray[pIndex].guess[sIndex]}
+              />
             );
           })}
-        </p>
+        </WordParagraph>
       );
     } else {
       return (
-        <p className="guess" key={Math.random()}>
+        <WordParagraph key={Math.random()}>
           {range(answer.length).map((item, index) => {
             const sIndex = index;
-            return <span key={Math.random()} className="cell"></span>;
+            return (
+              <LettersSpan key={Math.random()} className="cell" />
+            );
           })}
-        </p>
+        </WordParagraph>
       );
     }
     return;
