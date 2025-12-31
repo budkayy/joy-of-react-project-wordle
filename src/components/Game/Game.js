@@ -23,6 +23,7 @@ function Game() {
 
   const [count, setCount] = React.useState(0);
   const [currentWord, setCurrentWord] = React.useState('');
+  const [selectedLetters, setSelectedLetters] = React.useState([]);
 
   function addCurrentWord(word) {
     setCurrentWord(word);
@@ -32,7 +33,7 @@ function Game() {
     e.preventDefault();
 
     if (!PWORDS.includes(currentWord.toLowerCase())) {
-      console.log(currentWord.toLowerCase());
+      // console.log(currentWord.toLowerCase());
       alert('please enter an actual word');
       return;
     }
@@ -48,6 +49,29 @@ function Game() {
       },
     ];
 
+    setSelectedLetters((prev) => {
+      const statusMap = values.reduce(
+        (acc, { letter, status }) => {
+          const priority = {
+            'cell correct': 3,
+            'cell misplaced': 2,
+            'cell incorrect': 1,
+          };
+          if (
+            !acc[letter] ||
+            priority[status] > priority[acc[letter]]
+          ) {
+            acc[letter] = status;
+          }
+          return acc;
+        },
+        { ...prev }
+      );
+      return statusMap;
+    });
+
+    // console.log(selectedLetters);
+
     setWordsArray(nextGuesses);
 
     setCurrentWord('');
@@ -60,6 +84,8 @@ function Game() {
     } else if (nextGuesses.length >= allowedAt) {
       setGameStatus('lost');
     }
+
+    // console.log(nextGuesses);
   }
 
   function handleResetGame() {
@@ -69,6 +95,7 @@ function Game() {
     setCurrentWord('');
     answer = sample(WORDS).toUpperCase();
     console.info({ answer });
+    setSelectedLetters([]);
   }
 
   return (
@@ -94,6 +121,7 @@ function Game() {
         currentWord={currentWord}
         answer={answer}
         gameStatus={gameStatus}
+        selectedLetters={selectedLetters}
       />
     </>
   );

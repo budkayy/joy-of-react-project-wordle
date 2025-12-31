@@ -63,9 +63,6 @@ async function getRandomWord(length) {
 }
 
 export function processWord(currentWord, answer) {
-  const values = [];
-  const SOLVED_CHAR = '✓';
-
   const guessChars = currentWord.toUpperCase().split('');
   const answerChars = answer.split('');
 
@@ -92,6 +89,6 @@ export function processWord(currentWord, answer) {
       };
     }
   }
-  console.log(result);
+
   return result;
 }

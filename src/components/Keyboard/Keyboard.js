@@ -1,8 +1,8 @@
 import React from 'react';
 import './Keyboard.css';
 
-function Keyboard({ currentWord }) {
-  const keyboardKeys = 'qwertyuiopasdfghjklzxcvbnm';
+function Keyboard({ currentWord, selectedLetters }) {
+  const keyboardKeys = 'QWERTYUIOPASDFGHJKLZXCVBNM';
 
   const keyboardKeysElement = keyboardKeys.split('').map((item) => {
     const typedLetter = currentWord.includes(item);
@@ -11,9 +11,21 @@ function Keyboard({ currentWord }) {
       <span
         style={{
           gridArea: item,
-          // backgroundColor: backgroundColorCell,
+          backgroundColor: currentWord.includes(item)
+            ? 'hsl(0deg 0% 50%)'
+            : null,
         }}
-        className="keyboard-key"
+        className={
+          !!selectedLetters[item]
+            ? selectedLetters[item] === 'cell correct'
+              ? 'correct-key'
+              : selectedLetters[item] === 'cell incorrect'
+              ? 'incorrect-key'
+              : selectedLetters[item] === 'cell misplaced'
+              ? 'misplaced-key'
+              : null
+            : 'keyboard-key'
+        }
         key={item}
       >
         {item}
@@ -21,6 +33,7 @@ function Keyboard({ currentWord }) {
     );
   });
 
+  console.log(selectedLetters);
   return (
     <div className="keyboard-container">
       {keyboardKeysElement}

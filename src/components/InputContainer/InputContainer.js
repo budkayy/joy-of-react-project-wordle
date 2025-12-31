@@ -8,6 +8,7 @@ function InputContainer({
   addCurrentWord,
   answer,
   gameStatus,
+  selectedLetters,
 }) {
   return (
     <>
@@ -19,7 +20,10 @@ function InputContainer({
         gameStatus={gameStatus}
       />
 
-      <Keyboard currentWord={currentWord} />
+      <Keyboard
+        currentWord={currentWord}
+        selectedLetters={selectedLetters}
+      />
     </>
   );
 }
