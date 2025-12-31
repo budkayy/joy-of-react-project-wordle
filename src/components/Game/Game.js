@@ -6,7 +6,7 @@ import EndGame from '../EndGame/EndGame';
 import useSWR from 'swr';
 
 import { NUM_OF_GUESSES_ALLOWED as allowedAt } from '../../constants.js';
-import { checkGuess } from '../../game-helpers.js';
+import { checkGuess, processWord } from '../../game-helpers.js';
 
 import { sample } from '../../utils';
 import { WORDS, PWORDS } from '../../data';
@@ -28,10 +28,6 @@ function Game() {
     setCurrentWord(word);
   }
 
-  function processWord() {
-    const SOLVED_CHAR = '✓';
-  }
-
   function handleSubmitGuess(e) {
     e.preventDefault();
 
@@ -41,12 +37,14 @@ function Game() {
       return;
     }
 
+    const values = processWord(currentWord, answer);
+
     const nextGuesses = [
       ...wordsArray,
       {
         guess: currentWord,
         id: crypto.randomUUID(),
-        letters: checkGuess(currentWord, answer),
+        letters: values,
       },
     ];
 

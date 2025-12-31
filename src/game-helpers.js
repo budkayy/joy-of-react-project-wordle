@@ -62,10 +62,36 @@ async function getRandomWord(length) {
   const data = await responses.json();
 }
 
-const Endpoint = `https://random-word-api.herokuapp.com/word?length=`;
-async function fetchRandomWord(endpoint, length) {
-  const response = await fetch(endpoint, length);
-  const data = await response.json();
+export function processWord(currentWord, answer) {
+  const values = [];
+  const SOLVED_CHAR = '✓';
 
-  return data;
+  const guessChars = currentWord.toUpperCase().split('');
+  const answerChars = answer.split('');
+
+  const result = [];
+
+  for (let i = 0; i < guessChars.length; i++) {
+    if (guessChars[i] === answerChars[i]) {
+      result[i] = {
+        letter: guessChars[i],
+        status: 'cell correct',
+        id: crypto.randomUUID(),
+      };
+    } else if (answerChars.includes(guessChars[i])) {
+      result[i] = {
+        letter: guessChars[i],
+        status: 'cell misplaced',
+        id: crypto.randomUUID(),
+      };
+    } else {
+      result[i] = {
+        letter: guessChars[i],
+        status: 'cell incorrect',
+        id: crypto.randomUUID(),
+      };
+    }
+  }
+  console.log(result);
+  return result;
 }
