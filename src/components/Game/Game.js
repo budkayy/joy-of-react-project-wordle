@@ -49,6 +49,8 @@ function Game() {
       },
     ];
 
+    console.log(nextGuesses);
+
     setSelectedLetters((prev) => {
       const statusMap = values.reduce(
         (acc, { letter, status }) => {

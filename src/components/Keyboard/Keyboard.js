@@ -33,7 +33,7 @@ function Keyboard({ currentWord, selectedLetters }) {
     );
   });
 
-  console.log(selectedLetters);
+  // console.log(selectedLetters);
   return (
     <div className="keyboard-container">
       {keyboardKeysElement}
