@@ -1,14 +1,41 @@
 import React from 'react';
 import './Keyboard.css';
 
-function Keyboard({ currentWord, selectedLetters }) {
+function Keyboard({
+  currentWord,
+  selectedLetters,
+  addCurrentWord,
+  handleSubmitGuess,
+}) {
   const keyboardKeys = 'QWERTYUIOPASDFGHJKLZXCVBNM';
+
+  function handleBackspace() {
+    if (currentWord) {
+      const word = currentWord.slice(0, -1);
+      addCurrentWord(word);
+    }
+  }
+
+  function handleEnter() {
+    if (currentWord.length < 5) {
+      setCustomValidity(
+        'Please match the requested format.\nYou need to add a word with 5 characters'
+      );
+    }
+    handleSubmitGuess();
+  }
 
   const keyboardKeysElement = keyboardKeys.split('').map((item) => {
     const typedLetter = currentWord.includes(item);
 
+    function handleClicks(e) {
+      const word = currentWord + e.currentTarget.innerText;
+      addCurrentWord(word);
+    }
+
     return (
       <span
+        onClick={handleClicks}
         style={{
           gridArea: item,
           backgroundColor: currentWord.includes(item)
@@ -39,9 +66,11 @@ function Keyboard({ currentWord, selectedLetters }) {
       {keyboardKeysElement}
 
       <span
+        onClick={handleSubmitGuess}
         className="keyboard-key-enter"
         key="Enter"
         style={{ gridArea: 'Enter' }}
+        onMouseDown={(e) => e.preventDefault()}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,9 +84,11 @@ function Keyboard({ currentWord, selectedLetters }) {
       </span>
 
       <span
+        onClick={handleBackspace}
         className="keyboard-key-backspace"
         key="backspace"
         style={{ gridArea: 'backspace' }}
+        onMouseDown={(e) => e.preventDefault()}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

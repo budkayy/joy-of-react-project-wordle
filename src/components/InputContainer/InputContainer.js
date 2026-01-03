@@ -21,8 +21,10 @@ function InputContainer({
       />
 
       <Keyboard
+        addCurrentWord={addCurrentWord}
         currentWord={currentWord}
         selectedLetters={selectedLetters}
+        handleSubmitGuess={handleSubmitGuess}
       />
     </>
   );

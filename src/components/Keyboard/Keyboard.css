@@ -21,8 +21,8 @@
   background-color: hsl(0deg 0% 90%);
   border: 1px solid #d7d7d7;
   border-radius: 8px;
-  cursor: pointer;
   text-align: center;
+  pointer-events: none;
 }
 
 .keyboard-key-enter {

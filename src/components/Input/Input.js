@@ -1,18 +1,21 @@
 import React from 'react';
 
-function Input({
-  currentWord,
-  addCurrentWord,
-  handleSubmitGuess,
-  answer,
-  gameStatus,
-}) {
+function Input(
+  {
+    currentWord,
+    addCurrentWord,
+    handleSubmitGuess,
+    answer,
+    gameStatus,
+  },
+  ref
+) {
   const inputRef = React.useRef();
 
   React.useEffect(() => {
     console.log('focus');
     inputRef.current.focus();
-  }, [answer]);
+  }, [answer, currentWord]);
 
   function handleOnChange(e) {
     const formatInput = e.target.value
@@ -45,4 +48,4 @@ function Input({
   );
 }
 
-export default Input;
+export default React.forwardRef(Input);
