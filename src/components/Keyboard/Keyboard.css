@@ -105,3 +105,7 @@ svg {
   color: hsl(0, 0%, 100%);
   background-color: hsl(50deg 100% 30%);
 }
+
+.keyboard-key.flash-key {
+  transform: translateY(2px);
+}

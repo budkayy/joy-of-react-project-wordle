@@ -33,7 +33,6 @@ function Game() {
     e.preventDefault();
 
     if (!PWORDS.includes(currentWord.toLowerCase())) {
-      // console.log(currentWord.toLowerCase());
       alert('please enter an actual word');
       return;
     }
@@ -48,8 +47,6 @@ function Game() {
         letters: values,
       },
     ];
-
-    console.log(nextGuesses);
 
     setSelectedLetters((prev) => {
       const statusMap = values.reduce(
@@ -72,8 +69,6 @@ function Game() {
       return statusMap;
     });
 
-    // console.log(selectedLetters);
-
     setWordsArray(nextGuesses);
 
     setCurrentWord('');
@@ -86,8 +81,6 @@ function Game() {
     } else if (nextGuesses.length >= allowedAt) {
       setGameStatus('lost');
     }
-
-    // console.log(nextGuesses);
   }
 
   function handleResetGame() {

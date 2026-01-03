@@ -16,15 +16,6 @@ function Keyboard({
     }
   }
 
-  function handleEnter() {
-    if (currentWord.length < 5) {
-      setCustomValidity(
-        'Please match the requested format.\nYou need to add a word with 5 characters'
-      );
-    }
-    handleSubmitGuess();
-  }
-
   const keyboardKeysElement = keyboardKeys.split('').map((item) => {
     const typedLetter = currentWord.includes(item);
 
@@ -51,6 +42,8 @@ function Keyboard({
               : selectedLetters[item] === 'cell misplaced'
               ? 'misplaced-key'
               : null
+            : currentWord.includes(item)
+            ? 'keyboard-key flash-key'
             : 'keyboard-key'
         }
         key={item}
@@ -60,7 +53,6 @@ function Keyboard({
     );
   });
 
-  // console.log(selectedLetters);
   return (
     <div className="keyboard-container">
       {keyboardKeysElement}

@@ -13,7 +13,6 @@ function Input(
   const inputRef = React.useRef();
 
   React.useEffect(() => {
-    console.log('focus');
     inputRef.current.focus();
   }, [answer, currentWord]);
 
