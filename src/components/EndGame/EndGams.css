@@ -13,7 +13,7 @@
   z-index: 10;
   top: 0;
   left: 0;
-  animation: slideRight 1s forwards;
+  animation: slideRight 3s forwards;
 }
 
 @keyframes slideRight {

@@ -4,9 +4,14 @@ import Confetti from 'react-confetti';
 import FocusLock from 'react-focus-lock';
 
 function EndGame({ gameStatus, answer, handleResetGame }) {
+  const [animationFinished, setAnimationFinished] =
+    React.useState(false);
   return (
-    <FocusLock className="end-game-container">
-      <div className="end-game-container">
+    <FocusLock disabled={!animationFinished}>
+      <div
+        className="end-game-container"
+        onAnimationEnd={() => setAnimationFinished(true)}
+      >
         {gameStatus === 'won' ? <Confetti /> : null}
         <div>
           <h2>
